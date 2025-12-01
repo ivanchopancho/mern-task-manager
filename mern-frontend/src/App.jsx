@@ -105,7 +105,7 @@ const App = () => {
   </button>
 </div>
       <div className="w-full max-w-md">
-        {tasks.map(task => (<Task key={task._id} task={task} onToggle={toggleTask} onDelete={deleteTask} />))}
+        {tasks.map(task => (<Task key={task._id} task={task} onToggle={toggleTask} onDelete={deleteTask}/>))}
       </div>
     </div>
   );
