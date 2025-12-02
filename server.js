@@ -34,13 +34,13 @@ app.get("/api/info", (req, res) => {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const frontendPath = path.join(__dirname, "mern-frontend/dist");
+const frontendPath = path.join(__dirname, "mern-frontend", "dist");
 
 // Serve static files
 app.use(express.static(frontendPath));
 
 // Serve React frontend for any unknown route
-app.get("*", (req, res) => {
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
