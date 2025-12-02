@@ -8,7 +8,7 @@ dotenv.config()
 
 const app = express();
 app.use(cors({
-  origin: "*",   // TEMPORARY, we lock it down later
+  origin: "*",   
   methods: "GET,POST,PUT,DELETE",
 }));
 
