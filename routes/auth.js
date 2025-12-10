@@ -32,6 +32,9 @@ router.post("/register", async (req, res) => {
 //LOGIN
 router.post("/login", async (req,res) => {
     const { email, password } = req.body;
+    console.log("Login attempt for:", email);
+    console.log("JWT_SECRET:", process.env.JWT_SECRET ? "exists" : "missing");
+
 
     try {
         //find user 
