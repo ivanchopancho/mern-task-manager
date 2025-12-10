@@ -5,6 +5,8 @@ import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
 
+
+
 dotenv.config();
 
 const app = express();
@@ -16,8 +18,11 @@ app.use(cors({
 //parse json
 app.use(express.json());
 
+import authRoutes from "./routes/auth.js";
 import taskRoutes from "./routes/tasks.js";
+
 //mounting the routes
+app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
 //connect to mongo

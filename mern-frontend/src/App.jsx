@@ -7,8 +7,15 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [newTask, setNewTask] = useState("");
+  const [token, setToken] = useState(() => {
+  return localStorage.getItem("token") || null;
+});
 
+const isLoggedIn = Boolean(token);
 
+if (!isLoggedIn) {
+  return <LoginPage setToken={setToken} />;
+}
 
   
 
