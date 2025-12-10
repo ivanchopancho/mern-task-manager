@@ -41,7 +41,7 @@ const LoginPage = ({ setToken }) => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-6">
       <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-sm">
         <h1 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
-          Login
+          {isSignup ? "Sign Up" : "Login"}
         </h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -67,13 +67,13 @@ const LoginPage = ({ setToken }) => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
           >
-            Log In
+            {isSignup ? "Sign Up" : "Login"}
           </button>
         </form>
         <p className="text-center mt-3 text-sm">
           {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
           <button
-            className="text-blue-600 underline"
+            className="text-blue-600 hover:underline cursor-pointer"
             onClick={() => setIsSignup(!isSignup)}
           >
             {isSignup ? "Log in" : "Sign up"}
