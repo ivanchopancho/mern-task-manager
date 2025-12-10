@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import { useState } from "react";
 
 const LoginPage = ({ setToken }) => {
@@ -6,34 +6,36 @@ const LoginPage = ({ setToken }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
+  const [isSignup, setIsSignup] = useState(false);
 
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      });
 
-      if (!res.ok) {
-        const errMsg = await res.text();
-        throw new Error(errMsg || "Login failed");
-      }
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
 
-      const data = await res.json();
+  try {
+    const endpoint = isSignup ? "register" : "login";
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
-      // Save token in localStorage
-      localStorage.setItem("token", data.token);
-
-      // Update React state so App re-renders
-      setToken(data.token);
-
-    } catch (err) {
-      setError(err.message);
+    if (!res.ok) {
+      const errMsg = await res.text();
+      throw new Error(errMsg || `${isSignup ? "Signup" : "Login"} failed`);
     }
-  };
+
+    const data = await res.json();
+
+    // Save token and update app state only if logging in or after signup
+    localStorage.setItem("token", data.token);
+    setToken(data.token);
+
+  } catch (err) {
+    setError(err.message);
+  }
+};
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 px-6">
@@ -42,7 +44,7 @@ const LoginPage = ({ setToken }) => {
           Login
         </h1>
 
-        <form onSubmit={handleLogin} className="flex flex-col gap-3">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-3">
           <input
             type="email"
             className="border rounded px-3 py-2"
@@ -68,6 +70,15 @@ const LoginPage = ({ setToken }) => {
             Log In
           </button>
         </form>
+        <p className="text-center mt-3 text-sm">
+          {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
+          <button
+            className="text-blue-600 underline"
+            onClick={() => setIsSignup(!isSignup)}
+          >
+            {isSignup ? "Log in" : "Sign up"}
+          </button>
+        </p>
 
         {error && (
           <p className="text-red-600 text-sm mt-3 text-center">{error}</p>
