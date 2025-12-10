@@ -11,6 +11,14 @@ const App = () => {
   return localStorage.getItem("token") || null;
 });
 
+console.log("Token: ", token);
+console.log("isLoggedIn: ", Boolean(token));
+
+
+const authHeader = {
+  Authorization: `Bearer ${token}`
+};
+
 const isLoggedIn = Boolean(token);
 
 if (!isLoggedIn) {
@@ -24,7 +32,9 @@ if (!isLoggedIn) {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
+          headers: authHeader
+        });
         const data = await res.json();
         setTasks(data);
       } catch (err) {
@@ -43,7 +53,7 @@ if (!isLoggedIn) {
 
   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" , ...authHeader},
     body: JSON.stringify({ title: newTask })
   });
 
@@ -57,7 +67,7 @@ if (!isLoggedIn) {
   const toggleTask = async (id, completed) => {
   const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...authHeader },
     body: JSON.stringify({ completed: !completed })
     
   });
@@ -72,6 +82,7 @@ if (!isLoggedIn) {
   const deleteTask = async (id) => {
   await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`, {
     method: "DELETE",
+    headers: authHeader
   });
 
   setTasks(prev => prev.filter(task => task._id !== id));
