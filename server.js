@@ -21,7 +21,7 @@ app.use(express.json());
 import authRoutes from "./routes/auth.js";
 import taskRoutes from "./routes/tasks.js";
 
-//mounting the routes
+//routes
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
 
@@ -35,19 +35,7 @@ app.get("/api/info", (req, res) => {
   res.json({ author: "Ivan Puentes", stack: "MERN" });
 });
 
-// ========== PRODUCTION (Render) ==========
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
-const frontendPath = path.join(__dirname, "mern-frontend", "dist");
-
-// Serve static files
-app.use(express.static(frontendPath));
-
-// Serve React frontend for any unknown route
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
-});
 
 // ========== START SERVER ==========
 const PORT = process.env.PORT || 5000;

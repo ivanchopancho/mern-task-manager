@@ -8,11 +8,10 @@ var router = express.Router();
 
 
 // GETS all tasks
-//this next line uses an asynchronous promise(?)
+//
 router.get("/", auth, getTasks);
 
 //CREATES a new task
-//same as the one above, this makes a request to create a task to the server through a promise
 router.post("/", auth, createTask);
 
 // UPDATES a task (toggle completed, edit title, etc.)
