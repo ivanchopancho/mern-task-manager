@@ -35,6 +35,9 @@ app.get("/api/info", (req, res) => {
   res.json({ author: "Ivan Puentes", stack: "MERN" });
 });
 
+app.get("/", (req, res) => {
+  res.send("API is working");
+});
 
 
 // ========== START SERVER ==========
