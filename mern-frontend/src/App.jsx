@@ -30,6 +30,7 @@ const authHeader = {
           headers: authHeader
         });
         const data = await res.json();
+        console.log("TASKS RECEIVED:", data); //for debugging
         setTasks(data);
       } catch (err) {
         console.error("Error fetching tasks:", err);
