@@ -43,8 +43,6 @@ const authHeader = {
     
   }, [token]);
 
-  //this ensures tasks are not rendered until loading is done AND token exists
-  if(!token) return <LoginPage setToken={setToken}/>
 
   const addTask = async () => {
   if (!newTask.trim()) return;
@@ -85,6 +83,10 @@ const authHeader = {
 
   setTasks(prev => prev.filter(task => task._id !== id));
 };
+
+
+  //this ensures tasks are not rendered until loading is done AND token exists
+  if(!token) return <LoginPage setToken={setToken}/>
 
   
   if (loading) return (
