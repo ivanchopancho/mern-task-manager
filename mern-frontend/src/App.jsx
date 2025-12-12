@@ -18,13 +18,7 @@ console.log("isLoggedIn: ", Boolean(token));
 
 const authHeader = {
   Authorization: `Bearer ${token}`
-};
-
-//this ensures tasks are not rendered until loading is done AND token exists
-
-  if(!token) return <LoginPage setToken={setToken}/>
-
-  
+};  
 
 
   //fecthes tasks on load
@@ -48,6 +42,9 @@ const authHeader = {
     
     
   }, [token]);
+
+  //this ensures tasks are not rendered until loading is done AND token exists
+  if(!token) return <LoginPage setToken={setToken}/>
 
   const addTask = async () => {
   if (!newTask.trim()) return;
