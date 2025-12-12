@@ -24,8 +24,6 @@ const authHeader = {
 
   if(!token) return <LoginPage setToken={setToken}/>
 
-
-const isLoggedIn = Boolean(token);
   
 
 
