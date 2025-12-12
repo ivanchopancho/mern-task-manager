@@ -23,7 +23,6 @@ const authHeader = {
 
   //fecthes tasks on load
   useEffect(() => {
-    if (!token) return;
 
     const fetchTasks = async () => {
       try {
