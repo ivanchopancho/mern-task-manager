@@ -1,4 +1,3 @@
-import React, { use } from "react";
 import { useState } from "react";
 
 const LoginPage = ({ setToken }) => {
