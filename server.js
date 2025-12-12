@@ -39,6 +39,20 @@ app.get("/", (req, res) => {
 });
 
 
+import path from "path";
+import { fileURLToPath } from "url";
+
+// For __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve frontend build
+app.use(express.static(path.join(__dirname, "mern-frontend", "dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "mern-frontend", "dist", "index.html"));
+});
+
 
 // ========== START SERVER ==========
 const PORT = process.env.PORT || 5000;
