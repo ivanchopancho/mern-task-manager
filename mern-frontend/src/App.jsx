@@ -20,12 +20,12 @@ const authHeader = {
   Authorization: `Bearer ${token}`
 };
 
+//this ensures tasks are not rendered until loading is done AND token exists
+
+  if(!token) return <LoginPage setToken={setToken}/>
+
+
 const isLoggedIn = Boolean(token);
-
-if (!isLoggedIn) {
-  return <LoginPage setToken={setToken} />;
-}
-
   
 
 
@@ -91,10 +91,7 @@ if (!isLoggedIn) {
   setTasks(prev => prev.filter(task => task._id !== id));
 };
 
-  //this ensures tasks are not rendered until loading is done AND token exists
-
-  if(!token) return <LoginPage setToken={setToken}/>
-
+  
   if (loading) return (
       <div className="flex items-center justify-center h-screen">
         <h1 className="text-2xl font-semibold text-gray-700 animate-pulse">
