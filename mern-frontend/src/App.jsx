@@ -31,6 +31,8 @@ if (!isLoggedIn) {
 
   //fecthes tasks on load
   useEffect(() => {
+    if (!token) return;
+
     const fetchTasks = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
@@ -47,7 +49,7 @@ if (!isLoggedIn) {
     fetchTasks();
     
     
-  }, []);
+  }, [token]);
 
   const addTask = async () => {
   if (!newTask.trim()) return;
@@ -89,9 +91,9 @@ if (!isLoggedIn) {
   setTasks(prev => prev.filter(task => task._id !== id));
 };
 
-  
+  //this ensures tasks are not rendered until loading is done AND token exists
 
-  
+  if(!token) return <LoginPage setToken={setToken}/>
 
   if (loading) return (
       <div className="flex items-center justify-center h-screen">
