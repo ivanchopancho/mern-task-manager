@@ -30,7 +30,15 @@ const authHeader = {
           headers: authHeader
         });
         const data = await res.json();
-        console.log("TASKS RECEIVED:", data); //for debugging
+        
+        //FOR DEBUGGING, DELETE AFTER DEPLOY
+        const text = await res.text(); // <-- IMPORTANT: we read RAW text first
+        console.log("RAW RESPONSE: ", text)
+        console.log("RAW TASK RESPONSE:", res.status);
+        console.log("RAW JSON:", data);
+        console.log("TASKS RECEIVED:", data); 
+
+
         setTasks(data);
       } catch (err) {
         console.error("Error fetching tasks:", err);
