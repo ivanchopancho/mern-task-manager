@@ -29,17 +29,35 @@ const authHeader = {
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
           headers: authHeader
         });
-        const data = await res.json();
+
+
+
         
-        //FOR DEBUGGING, DELETE AFTER DEPLOY
-        const text = await res.text(); // <-- IMPORTANT: we read RAW text first
-        console.log("RAW RESPONSE: ", text)
-        console.log("RAW TASK RESPONSE:", res.status);
-        console.log("RAW JSON:", data);
-        console.log("TASKS RECEIVED:", data); 
+        //FOR DEBUGGING ONLY, DELETE AFTER DEPLOY
+        const text = await res.text();
+        console.log("RAW RESPONSE TEXT:", text);
+        console.log("STATUS:", res.status);
+
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (err) {
+          console.error("FAILED TO PARSE JSON", err)
+          data = null
+        }
+
+        console.log("PARSED JSON: ", data);
 
 
-        setTasks(data);
+        if (Array.isArray(data))  {
+          setTasks(data);
+        } else {
+          console.warn("TASKS RESPONSE NOT ARRAY: ", data);
+          setTasks([]);
+        }
+
+
+       
       } catch (err) {
         console.error("Error fetching tasks:", err);
       } finally {
