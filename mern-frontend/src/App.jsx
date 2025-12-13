@@ -69,6 +69,12 @@ const App = () => {
 
   }, [token]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    setTasks([]);
+  };
+
 
   const addTask = async () => {
     if (!newTask.trim()) return;
@@ -107,11 +113,7 @@ const App = () => {
       headers: authHeader
     });
 
-    const handleLogout = () => {
-      localStorage.removeItem("token");
-      setToken(null);
-      setTasks([]);
-    };
+
 
     setTasks(prev => prev.filter(task => task._id !== id));
   };
