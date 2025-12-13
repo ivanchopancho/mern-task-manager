@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
 
 
-export const auth = (req, res , next) => {
+export const auth = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     //check if token was sent
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res.status(401).json({ message: "No token provided"});
+        return res.status(401).json({ message: "No token provided" });
     }
 
     //extract just the token string
@@ -19,7 +19,7 @@ export const auth = (req, res , next) => {
         //modify the received request so that req.userId =
         //the property .userId inside of the payload "decoded" returned by jwt.verify()
 
-        req.user = { id: decoded.userId };
+        req.user = { userId: decoded.userId };
 
         next(); //continues to the route handler
     } catch (err) {

@@ -17,6 +17,12 @@ export const getTasks = async (req, res) => {
 
 // posting into api/tasks
 export const createTask = async (req, res) => {
+
+  //checking for shape of req
+  console.log("BODY:", req.body);
+  console.log("REQ.USER:", req.user);
+  console.log("USER ID TYPE:", typeof req.user?.id);
+
   try {
     const newTask = await Task.create({
       title: req.body.title,
