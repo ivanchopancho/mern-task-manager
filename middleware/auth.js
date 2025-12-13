@@ -19,7 +19,7 @@ export const auth = (req, res, next) => {
         //modify the received request so that req.userId =
         //the property .userId inside of the payload "decoded" returned by jwt.verify()
 
-        req.user = { userId: decoded.userId };
+        req.user = { id: decoded.userId };
 
         next(); //continues to the route handler
     } catch (err) {
