@@ -12,12 +12,17 @@ export default function Task({ task, onToggle, onDelete }) {
       >
         {task.title}
       </h3>
+      {task.description && (
+        <p className="text-sm text-gray-500">
+          {task.description}
+        </p>
+      )}
       <span
         className={`ml-4 w-4 h-4 rounded-full border-2 flex-shrink-0
           ${task.completed ? "border-green-700 bg-green-500" : "border-gray-400"}
         `}
       />
-       <button
+      <button
         onClick={(e) => {
           e.stopPropagation(); // Prevent triggering toggle
           onDelete(task._id);
