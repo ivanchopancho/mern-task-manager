@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
+  const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(true);
   const [newTask, setNewTask] = useState("");
   const [token, setToken] = useState(() => {
@@ -82,16 +83,21 @@ const App = () => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks`, {
       method: "POST",
       headers: { "Content-Type": "application/json", ...authHeader },
-      body: JSON.stringify({ title: newTask })
+      body: JSON.stringify({
+        title: newTask,
+        description
+      })
     });
 
     const created = await res.json();
     setTasks(prev => [created, ...prev]);
 
-    setNewTask(""); // clear input
+    //clear inputs
+    setNewTask("");
+    setDescription("");
   };
 
-  //toggleTask CHANGES the tasks STATE from COMPLETED to UNCOMPLETED
+
   const toggleTask = async (id, completed) => {
     const res = await fetch(`${import.meta.env.VITE_API_URL}/api/tasks/${id}`, {
       method: "PUT",
@@ -153,23 +159,33 @@ const App = () => {
       </button>
       <h1 className="text-4xl font-bold text-gray-800 mb-6">Tasks</h1>
       <div className="flex gap-2 mb-6">
-        <input
-          type="text"
-          placeholder="New task..."
-          className="flex-grow border rounded px-3 py-2"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") addTask();
-          }}
-        />
+        <div className="flex flex-col gap-2 mb-6 w-full max-w-md">
+          <input
+            type="text"
+            placeholder="New task title"
+            className="border rounded px-3 py-2"
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") addTask();
+            }}
+          />
 
-        <button
-          onClick={addTask}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-        >
-          Add
-        </button>
+          <textarea
+            placeholder="Description (optional)"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="border rounded px-3 py-2 resize-none"
+            rows={3}
+          />
+
+          <button
+            onClick={addTask}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition self-end"
+          >
+            Add
+          </button>
+        </div>
       </div>
       <div className="w-full max-w-md">
         {tasks.map(task => (<Task key={task._id} task={task} onToggle={toggleTask} onDelete={deleteTask} />))}
