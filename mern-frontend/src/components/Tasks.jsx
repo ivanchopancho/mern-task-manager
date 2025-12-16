@@ -3,17 +3,25 @@ export default function Task({ task, onToggle, onDelete }) {
   return (
     <div
       onClick={() => onToggle(task._id, task.completed)}
-      className={`flex items-center justify-between p-4 mb-3 rounded-lg shadow cursor-pointer transition-all duration-200
-        ${task.completed ? "bg-green-100 hover:bg-green-200" : "bg-white hover:bg-gray-100"}
-      `}
+      className={`
+    bg-white
+    border
+    rounded-lg
+    p-4
+    mb-3
+    shadow-sm
+    hover:shadow-md
+    transition
+    ${task.completed ? "opacity-60" : ""}
+  `}
     >
       <h3
-        className={`text-gray-800 font-medium ${task.completed ? "line-through text-green-700" : ""}`}
+        className="font-medium text-gray-800"
       >
         {task.title}
       </h3>
       {task.description && (
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 mt-1">
           {task.description}
         </p>
       )}
@@ -22,15 +30,19 @@ export default function Task({ task, onToggle, onDelete }) {
           ${task.completed ? "border-green-700 bg-green-500" : "border-gray-400"}
         `}
       />
-      <button
-        onClick={(e) => {
-          e.stopPropagation(); // Prevent triggering toggle
-          onDelete(task._id);
-        }}
-        className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition"
-      >
-        ✕
-      </button>
+      <input
+        type="checkbox"
+        checked={task.completed}
+        onChange={() => onToggle(task._id, task.completed)}
+        className="
+    bg-blue-600 text-white
+    px-4 py-2 rounded
+    hover:bg-blue-700
+    active:scale-95
+    transition
+  "
+      />
+
     </div>
   );
 }
