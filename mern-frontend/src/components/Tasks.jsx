@@ -4,44 +4,44 @@ export default function Task({ task, onToggle, onDelete }) {
     <div
       onClick={() => onToggle(task._id, task.completed)}
       className={`
-    bg-white
-    border
-    rounded-lg
+    group flex items-start gap-4
+    bg-zinc-900
+    border border-zinc-800
+    rounded-xl
     p-4
     mb-3
-    shadow-sm
-    hover:shadow-md
+    cursor-pointer
     transition
-    ${task.completed ? "opacity-60" : ""}
+    hover:border-zinc-700
+    hover:bg-zinc-800/70
+    ${task.completed ? "opacity-50" : ""}
   `}
     >
-      <h3
-        className="font-medium text-gray-800"
-      >
-        {task.title}
-      </h3>
-      {task.description && (
-        <p className="text-sm text-gray-500 mt-1">
-          {task.description}
-        </p>
-      )}
+      <div className="flex-">
+        <h3
+          className={`
+            text-sm font-medium
+            text-zinc-100
+            ${task.completed ? "line-through text-zinc-500" : ""}
+            `}
+        >
+          {task.title}
+        </h3>
+        {task.description && (
+          <p className="text-xs text-zinc-400 mt-1">
+            {task.description}
+          </p>
+        )}
+      </div>
       <span
-        className={`ml-4 w-4 h-4 rounded-full border-2 flex-shrink-0
-          ${task.completed ? "border-green-700 bg-green-500" : "border-gray-400"}
+        className={`
+          mt-1 w-4 h-4 rounded-full border-2 flex-shrink-0 transition
+          ${task.completed
+            ? "border-emerald-500 bg-emerald-500"
+            : "border-zinc-500 group-hover:border-zinc-400"}
         `}
       />
-      <input
-        type="checkbox"
-        checked={task.completed}
-        onChange={() => onToggle(task._id, task.completed)}
-        className="
-    bg-blue-600 text-white
-    px-4 py-2 rounded
-    hover:bg-blue-700
-    active:scale-95
-    transition
-  "
-      />
+
 
     </div>
   );

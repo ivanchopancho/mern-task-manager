@@ -131,8 +131,8 @@ const App = () => {
 
   if (loading) return (
 
-    <div className="flex items-center justify-center h-screen">
-      <h1 className="text-2xl font-semibold text-gray-700 animate-pulse">
+    <div className="flex items-center justify-center min-h-screen bg-zinc-950">
+      <h1 className="text-lg font-medium text-zinc-400 animate-pulse">
         Loading tasks...
       </h1>
     </div>
@@ -142,18 +142,24 @@ const App = () => {
   return (
 
 
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex justify-center px-4 py-10">
+    <div className="
+    min-h-screen bg-zinc-950 flex justify-center px-4 py-12 text-zinc-100
+    ">
 
-      <div className="w-full max-w-lg bg-white rounded-xl shadow-md p-6">
+      <div className="relative w-full max-w-xl
+      bg-zinc-900 border border-zinc-800
+      rounded-xl
+      shadow-lg shadow-black/40
+      p-6">
         <button
           onClick={handleLogout}
           className="
     absolute top-4 right-4
-    bg-red-500 text-white
-    px-4 py-2 rounded-md
-    text-sm font-medium
+    bg-zinc-800 text-zinc-300
+    px-3 py-1.5 rounded-md
+    text-xs font-medium
     hover:bg-red-600
-    active:scale-95
+    hover:text-white
     transition
   "
         >
@@ -162,22 +168,25 @@ const App = () => {
 
         <div className="flex items-center justify-between mb-6">
 
-          <h1 className="text-3xl font-semibold text-gray-800">
+          <h1 className="text-2xl font-semibold tracking-wide text-zinc-100">
             My Tasks
           </h1>
         </div>
 
-        <div className="flex flex-col gap-2 mb-6 w-full max-w-md">
+        <div className="flex flex-col gap-3 mb-6">
           <input
             type="text"
             placeholder="New task title"
             className="
-    border border-gray-300
+    bg-zinc-800
+    border border-zinc-700
     rounded-md
     px-3 py-2
+    text-sm
+    placeholder-zinc-500
     focus:outline-none
     focus:ring-2
-    focus:ring-blue-500
+    focus:ring-indigo-500
   "
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
@@ -191,13 +200,15 @@ const App = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className="
-    border border-gray-300
+    bg-zinc-800
+    border border-zinc-700
     rounded-md
+    text-sm
     px-3 py-2
     resize-none
     focus:outline-none
     focus:ring-2
-    focus:ring-blue-500
+    focus:ring-indigo-500
   "
             rows={3}
           />
@@ -205,9 +216,11 @@ const App = () => {
           <button
             onClick={addTask}
             className="
-    bg-blue-600 text-white
-    px-4 py-2 rounded
-    hover:bg-blue-700
+    bg-indigo-600
+    text-white
+    px-4 py-2
+    rounded-md
+    hover:bg-indigo-500
     active:scale-95
     transition
   "          >
@@ -216,9 +229,11 @@ const App = () => {
         </div>
         <div className="w-full max-w-md">
           {tasks.length === 0 && (
-            <div className="text-center text-gray-500 mt-8">
-              <p className="text-lg">No tasks yet</p>
-              <p className="text-sm">Add your first task above 👆</p>
+            <div className="text-center text-zinc-400 mt-10">
+              <p className="text-base font-medium">No tasks yet</p>
+              <p className="text-xs text-zinc-500 mt-1">
+                Add your first task above 👆
+              </p>
             </div>
           )}
           {tasks.map(task => (<Task key={task._id} task={task} onToggle={toggleTask} onDelete={deleteTask} />))}
